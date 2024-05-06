@@ -11,5 +11,11 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "joi": "^17.5.0",
+    "joi-password-complexity": "^5.1.0",
+    "jsonwebtoken": "^6.1.2"
+  }
 }
