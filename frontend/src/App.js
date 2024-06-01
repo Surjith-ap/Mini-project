@@ -1,4 +1,4 @@
-import React, {useState, useMemo} from 'react'
+import React, {useState, useMemo, useEffect} from 'react'
 import styled from "styled-components";
 import bg from './img/bg.png'
 import {MainLayout} from './styles/Layouts'
@@ -8,9 +8,15 @@ import Dashboard from './Components/Dashboard/Dashboard';
 import Income from './Components/Income/Income'
 import Expenses from './Components/Expenses/Expenses';
 import { useGlobalContext } from './context/globalContext';
+import {createBrowserRouter,Navigate,RouterProvider} from 'react-router-dom'
+import LoginPage from './Components/login/Login';
+import SignUppage from './Components/signup/SignUp';
+
+
 
 function App() {
-  const [active, setActive] = useState(1)
+  const [active, setActive] = useState(1);
+  const [isLogin, setIsLogin] = useState(localStorage.getItem('token'));
 
   const global = useGlobalContext()
   console.log(global);
@@ -34,8 +40,19 @@ function App() {
     return <Orb />
   },[])
 
-  return (
-    <AppStyled bg={bg} className="App">
+
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element:  <LoginPage />
+    },
+    {
+      path: '/login',
+      element:  <LoginPage />
+    },
+    {
+      path: '/dashboard',
+      element:  <AppStyled bg={bg} className="App">
       {orbMemo}
       <MainLayout>
         <Navigation active={active} setActive={setActive} />
@@ -43,7 +60,20 @@ function App() {
           {displayData()}
         </main>
       </MainLayout>
-    </AppStyled>
+    </AppStyled> 
+    },
+    {
+      path: '/signup',
+      element: <SignUppage />
+    }
+  ])
+
+
+
+  return (
+    <>
+    <RouterProvider router={router} />
+    </>
   );
 }
 

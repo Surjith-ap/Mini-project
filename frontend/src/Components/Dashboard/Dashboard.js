@@ -34,6 +34,7 @@ function Dashboard() {
                                     {rupee} {totalExpenses()}
                                 </p>
                             </div>
+                           
                             <div className="balance">
                                 <h2>Total Balance</h2>
                                 <p>

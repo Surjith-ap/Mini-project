@@ -3,15 +3,43 @@ import styled from 'styled-components'
 import avatar from '../../img/avatar.png'
 import { signout } from '../../utils/Icons'
 import { menuItems } from '../../utils/menuItems'
+import { Link, useNavigate } from 'react-router-dom'
 
 function Navigation({active, setActive}) {
+    // Check if local storage is supported by the browser
+if (typeof(Storage) !== "undefined") {
+    console.log('hi')
+    // Retrieve data from local storage
+    var storedData = localStorage.getItem("userDetails");
+    var data = JSON.parse(storedData);
+    
+    // Check if the data exists
+    if (data !== null) {
+        // Data found, do something with it
+        console.log("Retrieved data:", data);
+    } else {
+        // Data not found
+        console.log("No data found in local storage.");
+    }
+} else {
+    // Local storage not supported
+    console.log("Local storage is not supported by your browser.");
+    const res=data.json()
+}
+const navigate=useNavigate()
+const handleSignOut = () => {
+    
+    window.localstorage.removeItem('userDetails')
+    
+    }
+
     
     return (
         <NavStyled>
             <div className="user-con">
                 <img src={avatar} alt="" />
                 <div className="text">
-                    <h2>UserName</h2>
+                    <h2>{data.firstName}</h2>
                     <p>Your Money</p>
                 </div>
             </div>
@@ -28,9 +56,9 @@ function Navigation({active, setActive}) {
                 })}
             </ul>
             <div className="bottom-nav">
-                <li>
-                    {signout} Sign Out
-                </li>
+                <button onClick={handleSignOut}>
+                    {signout} <Link to={'/login'}>Sign Out</Link>
+                </button>
             </div>
         </NavStyled>
     )

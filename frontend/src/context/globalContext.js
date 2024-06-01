@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react"
 import axios from 'axios'
 
 
-const BASE_URL = "http://localhost:3001/api/v1/";
+const BASE_URL = "http://localhost:3004/api/v1/";
 
 
 const GlobalContext = React.createContext()
@@ -75,6 +75,9 @@ export const GlobalProvider = ({children}) => {
 
     const totalBalance = () => {
         return totalIncome() - totalExpenses()
+    }
+    if(totalBalance()<0){
+        alert("Limit exceeds")
     }
 
     const transactionHistory = () => {
